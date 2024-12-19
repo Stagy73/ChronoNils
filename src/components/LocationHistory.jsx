@@ -69,7 +69,8 @@ const LocationHistory = ({ history, onBack }) => {
     // Load the Google Maps script dynamically if not already loaded
     if (!window.google) {
       const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyADbLZ2kuszoijOA2vMqyaH3aOZAWJ63ik&libraries=geometry,v=beta`;
+      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; // Load API key from .env
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=geometry,v=beta`;
       script.async = true;
       script.onload = () => console.log("Google Maps script loaded");
       document.body.appendChild(script);

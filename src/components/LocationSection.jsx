@@ -5,11 +5,11 @@ const LocationSection = ({ saveLocationHistory, isActive }) => {
   const mapRef = useRef(null); // Map container ref
   const googleMapsRef = useRef(null); // Google Maps instance ref
   const geoWatchId = useRef(null); // Geolocation watch ID
-
   const loadGoogleMapsScript = () => {
     if (!window.google) {
       const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyADbLZ2kuszoijOA2vMqyaH3aOZAWJ63ik&libraries=places&v=beta`;
+      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; // Load API key from .env
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&v=beta`;
       script.async = true;
       script.defer = true;
       script.onload = () =>
