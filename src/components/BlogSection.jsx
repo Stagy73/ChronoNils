@@ -1,28 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 
-const BlogSection = () => {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "First Post",
-      content: "This is the content of the first post.",
-    },
-    {
-      id: 2,
-      title: "Second Post",
-      content: "This is the content of the second post.",
-    },
-  ]);
+const BlogSection = ({ posts, onNewPost }) => {
+  const handleNewPost = () => {
+    // Optionally, you can add logic to submit a new post
+    // After submission, call the `onNewPost` function to refresh
+    onNewPost();
+  };
 
   return (
-    <section id="blog">
-      <h2>Blog</h2>
-      {posts.map((post) => (
-        <article key={post.id}>
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
-        </article>
-      ))}
+    <section id="blog-section">
+      <h2>Blog Posts</h2>
+      <button onClick={handleNewPost} style={{ marginBottom: "20px" }}>
+        Refresh Posts
+      </button>
+      {posts.length > 0 ? (
+        posts.map((post, index) => (
+          <div key={index} style={{ marginBottom: "20px" }}>
+            <h3>{post.title}</h3>
+            <p>{post.content}</p>
+            {post.image && (
+              <img
+                src={`http://localhost:5000${post.image}`}
+                alt={post.title}
+                style={{ maxWidth: "100%", marginTop: "10px" }}
+              />
+            )}
+            <p>
+              <em>Posted on {new Date(post.date).toLocaleString()}</em>
+            </p>
+          </div>
+        ))
+      ) : (
+        <p>No posts yet. Be the first to post!</p>
+      )}
     </section>
   );
 };
